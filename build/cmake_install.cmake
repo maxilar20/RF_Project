@@ -161,6 +161,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/vagrant/ros_ws/build/baxter/moveit_robots/baxter/baxter_ikfast_left_arm_plugin/cmake_install.cmake")
   include("/home/vagrant/ros_ws/build/baxter/moveit_robots/baxter/baxter_ikfast_right_arm_plugin/cmake_install.cmake")
   include("/home/vagrant/ros_ws/build/baxter/moveit_robots/atlas_v3_moveit_config/cmake_install.cmake")
+  include("/home/vagrant/ros_ws/build/baxter_chess_game/cmake_install.cmake")
 
 endif()
 

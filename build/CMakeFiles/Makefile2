@@ -12464,6 +12464,24 @@ baxter/moveit_robots/atlas_v3_moveit_config/preinstall:
 .PHONY : baxter/moveit_robots/atlas_v3_moveit_config/preinstall
 
 #=============================================================================
+# Directory level rules for directory baxter_chess_game
+
+# Convenience name for "all" pass in the directory.
+baxter_chess_game/all:
+
+.PHONY : baxter_chess_game/all
+
+# Convenience name for "clean" pass in the directory.
+baxter_chess_game/clean:
+
+.PHONY : baxter_chess_game/clean
+
+# Convenience name for "preinstall" pass in the directory.
+baxter_chess_game/preinstall:
+
+.PHONY : baxter_chess_game/preinstall
+
+#=============================================================================
 # Special targets to cleanup operation of make.
 
 # Special rule to run CMake to check the build system integrity.

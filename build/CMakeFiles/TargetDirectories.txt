@@ -539,3 +539,10 @@
 /home/vagrant/ros_ws/build/baxter/moveit_robots/atlas_v3_moveit_config/CMakeFiles/install/local.dir
 /home/vagrant/ros_ws/build/baxter/moveit_robots/atlas_v3_moveit_config/CMakeFiles/rebuild_cache.dir
 /home/vagrant/ros_ws/build/baxter/moveit_robots/atlas_v3_moveit_config/CMakeFiles/install.dir
+/home/vagrant/ros_ws/build/baxter_chess_game/CMakeFiles/install/strip.dir
+/home/vagrant/ros_ws/build/baxter_chess_game/CMakeFiles/edit_cache.dir
+/home/vagrant/ros_ws/build/baxter_chess_game/CMakeFiles/list_install_components.dir
+/home/vagrant/ros_ws/build/baxter_chess_game/CMakeFiles/test.dir
+/home/vagrant/ros_ws/build/baxter_chess_game/CMakeFiles/install/local.dir
+/home/vagrant/ros_ws/build/baxter_chess_game/CMakeFiles/rebuild_cache.dir
+/home/vagrant/ros_ws/build/baxter_chess_game/CMakeFiles/install.dir

@@ -120,7 +120,6 @@ gazebo_ros_bumper_EXTERNAL_OBJECTS =
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_bumper.so: /usr/lib/x86_64-linux-gnu/libboost_iostreams.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_bumper.so: /usr/lib/x86_64-linux-gnu/libprotobuf.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_bumper.so: /usr/lib/x86_64-linux-gnu/libsdformat.so
-/home/vagrant/ros_ws/devel/lib/libgazebo_ros_bumper.so: /usr/lib/x86_64-linux-gnu/libOgreMain.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_bumper.so: /usr/lib/x86_64-linux-gnu/libOgreTerrain.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_bumper.so: /usr/lib/x86_64-linux-gnu/libOgrePaging.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_bumper.so: /usr/lib/x86_64-linux-gnu/libignition-transport4.so.4.0.0
@@ -200,7 +199,6 @@ gazebo_ros_bumper_EXTERNAL_OBJECTS =
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_bumper.so: /usr/lib/x86_64-linux-gnu/libboost_iostreams.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_bumper.so: /usr/lib/x86_64-linux-gnu/libprotobuf.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_bumper.so: /usr/lib/x86_64-linux-gnu/libsdformat.so
-/home/vagrant/ros_ws/devel/lib/libgazebo_ros_bumper.so: /usr/lib/x86_64-linux-gnu/libOgreMain.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_bumper.so: /usr/lib/x86_64-linux-gnu/libOgreTerrain.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_bumper.so: /usr/lib/x86_64-linux-gnu/libOgrePaging.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_bumper.so: /opt/ros/melodic/lib/libnodeletlib.so

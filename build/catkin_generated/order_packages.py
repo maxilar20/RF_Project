@@ -2,4 +2,4 @@
 source_root_dir = "/home/vagrant/ros_ws/src"
 whitelisted_packages = "".split(';') if "" != "" else []
 blacklisted_packages = "".split(';') if "" != "" else []
-underlay_workspaces = "/home/vagrant/rf_ws/devel;/opt/ros/melodic".split(';') if "/home/vagrant/rf_ws/devel;/opt/ros/melodic" != "" else []
+underlay_workspaces = "/home/vagrant/ros_ws/devel;/opt/ros/melodic".split(';') if "/home/vagrant/ros_ws/devel;/opt/ros/melodic" != "" else []

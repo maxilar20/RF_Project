@@ -114,7 +114,6 @@ gazebo_ros_video_EXTERNAL_OBJECTS =
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libboost_iostreams.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libprotobuf.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libsdformat.so
-/home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libOgreMain.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libOgreTerrain.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libOgrePaging.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libignition-transport4.so.4.0.0
@@ -177,6 +176,13 @@ gazebo_ros_video_EXTERNAL_OBJECTS =
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libboost_date_time.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libboost_atomic.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libpthread.so
+/home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libboost_thread.so
+/home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libboost_date_time.so
+/home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libboost_system.so
+/home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libboost_atomic.so
+/home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libboost_chrono.so
+/home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libboost_chrono.so
+/home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libpthread.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/liblapack.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libgazebo.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libgazebo_client.so
@@ -196,7 +202,6 @@ gazebo_ros_video_EXTERNAL_OBJECTS =
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libboost_iostreams.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libprotobuf.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libsdformat.so
-/home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libOgreMain.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libOgreTerrain.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libOgrePaging.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /opt/ros/melodic/lib/libnodeletlib.so
@@ -267,7 +272,6 @@ gazebo_ros_video_EXTERNAL_OBJECTS =
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libboost_iostreams.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libprotobuf.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libsdformat.so
-/home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libOgreMain.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libOgreTerrain.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /usr/lib/x86_64-linux-gnu/libOgrePaging.so
 /home/vagrant/ros_ws/devel/lib/libgazebo_ros_video.so: /opt/ros/melodic/lib/libnodeletlib.so
