@@ -1,8 +1,0 @@
-prefix=/home/mael/RF_Project/devel
-
-Name: gazebo_ros_control
-Description: Description of gazebo_ros_control
-Version: 2.5.17
-Cflags: -I/home/mael/RF_Project/src/baxter/gazebo_ros_pkgs/gazebo_ros_control/include
-Libs: -L${prefix}/lib -lgazebo_ros_control -ldefault_robot_hw_sim
-Requires: roscpp std_msgs controller_manager control_toolbox pluginlib hardware_interface transmission_interface joint_limits_interface urdf angles

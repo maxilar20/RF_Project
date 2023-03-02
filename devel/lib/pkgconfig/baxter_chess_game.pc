@@ -1,8 +1,0 @@
-prefix=/home/mael/RF_Project/devel
-
-Name: baxter_chess_game
-Description: Description of baxter_chess_game
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

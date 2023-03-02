@@ -9,4 +9,4 @@ Terminal 3:
 roslaunch baxter_moveit_config baxter_grippers.launch
 
 Terminal 4:
-rosrun lab4_pkg pick_and_place_moveit.py
+rosrun baxter_chess_game pick_and_place_moveit.py
