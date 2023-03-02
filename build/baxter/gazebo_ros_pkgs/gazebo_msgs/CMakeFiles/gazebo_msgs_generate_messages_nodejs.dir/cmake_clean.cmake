@@ -1,0 +1,40 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/gazebo_msgs_generate_messages_nodejs"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/msg/ModelStates.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/msg/WorldState.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/msg/ODEJointProperties.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/msg/ODEPhysics.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/msg/LinkStates.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/msg/ModelState.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/msg/ContactState.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/msg/LinkState.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/msg/ContactsState.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/ApplyJointEffort.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/GetPhysicsProperties.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/ApplyBodyWrench.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/GetLinkState.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/SetLinkProperties.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/SetJointProperties.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/SetPhysicsProperties.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/SetLinkState.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/GetLinkProperties.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/GetModelProperties.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/SetModelState.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/GetLightProperties.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/DeleteLight.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/SetModelConfiguration.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/SpawnModel.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/BodyRequest.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/SetLightProperties.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/SetJointTrajectory.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/GetWorldProperties.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/JointRequest.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/GetJointProperties.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/DeleteModel.js"
+  "/home/vagrant/ros_ws/devel/share/gennodejs/ros/gazebo_msgs/srv/GetModelState.js"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang )
+  include(CMakeFiles/gazebo_msgs_generate_messages_nodejs.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()
