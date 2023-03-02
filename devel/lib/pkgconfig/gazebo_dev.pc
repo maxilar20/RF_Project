@@ -1,8 +1,8 @@
-prefix=/home/vagrant/ros_ws/devel
+prefix=/home/mael/RF_Project/devel
 
 Name: gazebo_dev
 Description: Description of gazebo_dev
 Version: 2.5.17
 Cflags: 
-Libs: -L/home/vagrant/ros_ws/devel/lib 
+Libs: -L${prefix}/lib 
 Requires: 

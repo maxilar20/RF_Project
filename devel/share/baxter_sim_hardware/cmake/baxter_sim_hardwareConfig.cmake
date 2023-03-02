@@ -67,14 +67,14 @@ set(baxter_sim_hardware_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(baxter_sim_hardware_SOURCE_PREFIX /home/vagrant/ros_ws/src/baxter/baxter/baxter_simulator/baxter_sim_hardware)
-  set(baxter_sim_hardware_DEVEL_PREFIX /home/vagrant/ros_ws/devel)
+  set(baxter_sim_hardware_SOURCE_PREFIX /home/mael/RF_Project/src/baxter/baxter/baxter_simulator/baxter_sim_hardware)
+  set(baxter_sim_hardware_DEVEL_PREFIX /home/mael/RF_Project/devel)
   set(baxter_sim_hardware_INSTALL_PREFIX "")
   set(baxter_sim_hardware_PREFIX ${baxter_sim_hardware_DEVEL_PREFIX})
 else()
   set(baxter_sim_hardware_SOURCE_PREFIX "")
   set(baxter_sim_hardware_DEVEL_PREFIX "")
-  set(baxter_sim_hardware_INSTALL_PREFIX /home/vagrant/ros_ws/install)
+  set(baxter_sim_hardware_INSTALL_PREFIX /home/mael/RF_Project/install)
   set(baxter_sim_hardware_PREFIX ${baxter_sim_hardware_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(baxter_sim_hardware_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/vagrant/ros_ws/src/baxter/baxter/baxter_simulator/baxter_sim_hardware/include;/usr/include;/usr/include/opencv " STREQUAL " ")
+if(NOT "/home/mael/RF_Project/src/baxter/baxter/baxter_simulator/baxter_sim_hardware/include;/usr/include;/usr/include/opencv " STREQUAL " ")
   set(baxter_sim_hardware_INCLUDE_DIRS "")
-  set(_include_dirs "/home/vagrant/ros_ws/src/baxter/baxter/baxter_simulator/baxter_sim_hardware/include;/usr/include;/usr/include/opencv")
+  set(_include_dirs "/home/mael/RF_Project/src/baxter/baxter/baxter_simulator/baxter_sim_hardware/include;/usr/include;/usr/include/opencv")
   if(NOT "https://github.com/RethinkRobotics/baxter_simulator/issues " STREQUAL " ")
     set(_report "Check the issue tracker 'https://github.com/RethinkRobotics/baxter_simulator/issues' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT "http://sdk.rethinkrobotics.com " STREQUAL " ")
@@ -110,7 +110,7 @@ if(NOT "/home/vagrant/ros_ws/src/baxter/baxter/baxter_simulator/baxter_sim_hardw
         message(FATAL_ERROR "Project 'baxter_sim_hardware' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'baxter_sim_hardware' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/vagrant/ros_ws/src/baxter/baxter/baxter_simulator/baxter_sim_hardware/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'baxter_sim_hardware' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/mael/RF_Project/src/baxter/baxter/baxter_simulator/baxter_sim_hardware/${idir}'.  ${_report}")
     endif()
     _list_append_unique(baxter_sim_hardware_INCLUDE_DIRS ${include})
   endforeach()
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/vagrant/ros_ws/devel/lib;/home/vagrant/ros_ws/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/mael/RF_Project/devel/lib;/home/mael/RF_Project/devel/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

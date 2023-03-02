@@ -67,14 +67,14 @@ set(gazebo_ros_control_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(gazebo_ros_control_SOURCE_PREFIX /home/vagrant/ros_ws/src/baxter/gazebo_ros_pkgs/gazebo_ros_control)
-  set(gazebo_ros_control_DEVEL_PREFIX /home/vagrant/ros_ws/devel)
+  set(gazebo_ros_control_SOURCE_PREFIX /home/mael/RF_Project/src/baxter/gazebo_ros_pkgs/gazebo_ros_control)
+  set(gazebo_ros_control_DEVEL_PREFIX /home/mael/RF_Project/devel)
   set(gazebo_ros_control_INSTALL_PREFIX "")
   set(gazebo_ros_control_PREFIX ${gazebo_ros_control_DEVEL_PREFIX})
 else()
   set(gazebo_ros_control_SOURCE_PREFIX "")
   set(gazebo_ros_control_DEVEL_PREFIX "")
-  set(gazebo_ros_control_INSTALL_PREFIX /home/vagrant/ros_ws/install)
+  set(gazebo_ros_control_INSTALL_PREFIX /home/mael/RF_Project/install)
   set(gazebo_ros_control_PREFIX ${gazebo_ros_control_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(gazebo_ros_control_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/vagrant/ros_ws/src/baxter/gazebo_ros_pkgs/gazebo_ros_control/include " STREQUAL " ")
+if(NOT "/home/mael/RF_Project/src/baxter/gazebo_ros_pkgs/gazebo_ros_control/include " STREQUAL " ")
   set(gazebo_ros_control_INCLUDE_DIRS "")
-  set(_include_dirs "/home/vagrant/ros_ws/src/baxter/gazebo_ros_pkgs/gazebo_ros_control/include")
+  set(_include_dirs "/home/mael/RF_Project/src/baxter/gazebo_ros_pkgs/gazebo_ros_control/include")
   if(NOT "https://github.com/ros-simulation/gazebo_ros_pkgs/issues " STREQUAL " ")
     set(_report "Check the issue tracker 'https://github.com/ros-simulation/gazebo_ros_pkgs/issues' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT "http://ros.org/wiki/gazebo_ros_control " STREQUAL " ")
@@ -110,7 +110,7 @@ if(NOT "/home/vagrant/ros_ws/src/baxter/gazebo_ros_pkgs/gazebo_ros_control/inclu
         message(FATAL_ERROR "Project 'gazebo_ros_control' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'gazebo_ros_control' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/vagrant/ros_ws/src/baxter/gazebo_ros_pkgs/gazebo_ros_control/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'gazebo_ros_control' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/mael/RF_Project/src/baxter/gazebo_ros_pkgs/gazebo_ros_control/${idir}'.  ${_report}")
     endif()
     _list_append_unique(gazebo_ros_control_INCLUDE_DIRS ${include})
   endforeach()
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/vagrant/ros_ws/devel/lib;/home/vagrant/ros_ws/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/mael/RF_Project/devel/lib;/home/mael/RF_Project/devel/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

@@ -1,2 +1,2 @@
 - setup-file:
-    local-name: /home/vagrant/ros_ws/devel/setup.sh
+    local-name: /home/mael/RF_Project/devel/setup.sh
