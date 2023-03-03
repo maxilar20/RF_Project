@@ -18,7 +18,7 @@ if __name__ == '__main__':
         for col, piece in enumerate(each):
             if piece in list_pieces:
                 piece_name = "%s%d" % (piece, col)
-                print "Deleting "+piece_name
+                print ("Deleting "+piece_name)
                 delete_model(piece_name)
 
     delete_model("cafe_table")
