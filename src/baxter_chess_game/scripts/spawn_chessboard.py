@@ -30,13 +30,13 @@ if __name__ == '__main__':
     orient = Quaternion(*tf.transformations.quaternion_from_euler(0, 0, 0))
     board_pose = Pose(Point(0.3,0.55,0.78), orient)
     frame_dist = 0.025
-    model_path = rospkg.RosPack().get_path('chess_baxter')+"/models/"
+    model_path = rospkg.RosPack().get_path('baxter_chess_game')+"/models/"
     
     with open(model_path + "chessboard/model.sdf", "r") as f:
         board_xml = f.read().replace('\n', '')
 
     # Add chessboard into the simulation
-    print srv_call("chessboard", board_xml, "", board_pose, "world")
+    print(srv_call("chessboard", board_xml, "", board_pose, "world"))
 
     # Add chesspieces into the simulation
     origin_piece = 0.03125
@@ -46,6 +46,7 @@ if __name__ == '__main__':
     for each in list_pieces:
         with open(model_path + each+".sdf", "r") as f:
             pieces_xml[each] = f.read().replace('\n', '')
+            
 
     # board_setup = ['rnbqkbnr', 'pppppppp', '', '', '', '', 'PPPPPPPP', 'RNBQKBNR']
     board_setup = ['r******r', '', '**k*****', '', '', '******K*', '', 'R******R']
@@ -55,6 +56,7 @@ if __name__ == '__main__':
     for row, each in enumerate(board_setup):
         # print row
         for col, piece in enumerate(each):
+            print("haha")
             pose = deepcopy(board_pose)
             pose.position.x = board_pose.position.x + frame_dist + origin_piece + row * (2 * origin_piece)
             pose.position.y = board_pose.position.y - 0.55 + frame_dist + origin_piece + col * (2 * origin_piece)
