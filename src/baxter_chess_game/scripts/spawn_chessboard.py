@@ -48,23 +48,25 @@ if __name__ == '__main__':
             pieces_xml[each] = f.read().replace('\n', '')
             
 
-    # board_setup = ['rnbqkbnr', 'pppppppp', '', '', '', '', 'PPPPPPPP', 'RNBQKBNR']
-    board_setup = ['r******r', '', '**k*****', '', '', '******K*', '', 'R******R']
+    board_setup = ['rnbqkbnr', 'pppppppp', '', '', '', '', 'PPPPPPPP', 'RNBQKBNR']
+    #board_setup = ['r******r', '', '**k*****', '', '', '******K*', '', 'R******R']
 
     piece_positionmap = dict()
     piece_names = []
     for row, each in enumerate(board_setup):
         # print row
         for col, piece in enumerate(each):
-            print("haha")
             pose = deepcopy(board_pose)
             pose.position.x = board_pose.position.x + frame_dist + origin_piece + row * (2 * origin_piece)
             pose.position.y = board_pose.position.y - 0.55 + frame_dist + origin_piece + col * (2 * origin_piece)
             pose.position.z += 0.018
             piece_positionmap[str(row)+str(col)] = [pose.position.x, pose.position.y, pose.position.z-0.93] #0.93 to compensate Gazebo RViz origin difference
             if piece in list_pieces:
-                piece_names.append("%s%d" % (piece,col))
-
+                name = "%s%d" % (piece,col)
+                piece_names.append(name)
+                # Add chessboard into the simulation
+                print(srv_call(name, pieces_xml[piece], "", pose, "world"))
+    
     rospy.set_param('board_setup', board_setup) # Board setup
     rospy.set_param('list_pieces', list_pieces) # List of unique pieces
     rospy.set_param('piece_target_position_map', piece_positionmap) # 3D positions for each square in the chessboard
