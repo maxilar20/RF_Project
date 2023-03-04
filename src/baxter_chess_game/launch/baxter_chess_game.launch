@@ -6,7 +6,7 @@
 
   <node pkg="baxter_interface" type="joint_trajectory_action_server.py" name="rsdk_%s_joint_trajectory_action_server%s"/>
 
-  <include file="/home/vagrant/RF_Project/src/baxter/moveit_robots/baxter/baxter_moveit_config/launch/baxter_grippers.launch"/>
+  <include file="$(find baxter_moveit_config)/launch/baxter_grippers.launch"/>
   
   <node pkg="baxter_chess_game" type="pick_and_place_moveit.py" name="ik_pick_and_place_moveit"/>
 
