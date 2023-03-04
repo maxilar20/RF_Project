@@ -14,6 +14,7 @@ from geometry_msgs.msg import (
     Pose,
     Point,
     Quaternion,
+    PoseStamped
 )
 
 from gazebo_msgs.srv import (
@@ -106,6 +107,15 @@ class ChessGame(object):
         self._servo_to_pose(pose)
         self.gripper_open()
         self._retract()
+
+    def pose_callback(self, pose_msg):
+        block_pose_pick = Pose(
+            position=Point(x=pose_msg.pose.position.x, y=pose_msg.pose.position.y, z=pose_msg.pose.position.z - 0.02),
+            orientation=overhead_orientation)
+
+        picking_pose = Pose(position=Point(x=0.0, y=0.7, z=0.15),
+            orientation=overhead_orientation)
+
 
 def load_gazebo_models():
     rospy.wait_for_service("gazebo/spawn_sdf_model")
@@ -206,6 +216,9 @@ def main():
 
     
     chess_game = ChessGame(limb, hover_distance)
+
+    # Subscriber
+    rospy.Subscriber('/lab5_pkg/pose', PoseStamped, chess_game.pose_callback, queue_size=1)
 
 
     orient = Quaternion(*tf.transformations.quaternion_from_euler(0, 0, 0))
