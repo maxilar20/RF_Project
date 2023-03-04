@@ -14,3 +14,7 @@ roslaunch baxter_moveit_config baxter_grippers.launch
 
 Terminal 4:
 rosrun baxter_chess_game pick_and_place_moveit.py
+
+TODO: 
+- Change spawn to an action
+- Change despawn to an action
