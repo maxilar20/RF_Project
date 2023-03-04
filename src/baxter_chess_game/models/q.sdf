@@ -36,14 +36,15 @@
             </collision>
             <visual name="visual">
                 <geometry>
-                    <box>
-                        <size>0.03 0.03 0.04</size>
-                    </box>
+                    <mesh>
+                        <uri>/home/vagrant/RF_Project/src/baxter_chess_game/models/pieces/Queen.dae</uri>
+                        <scale>1 1 1</scale>
+                    </mesh>
                 </geometry>
                 <material>
                     <script>
                         <uri>file://media/materials/scripts/gazebo.material</uri>
-                        <name>Gazebo/Red</name>
+                        <name>Gazebo/Wood</name>
                     </script>
                 </material>
             </visual>
