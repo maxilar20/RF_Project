@@ -1,5 +1,9 @@
-Terminal 1:
+**Terminal 1:**
 roslaunch baxter_gazebo baxter_world.launch
+
+**Terminal 2:**
+roslaunch baxter_chess_game baxter_chess_game.launch
+
 
 Terminal 2:
 rosrun baxter_tools enable_robot.py -e
