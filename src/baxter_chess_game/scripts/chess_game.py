@@ -223,7 +223,7 @@ def main():
     listener = tf.TransformListener()
 
     orient = Quaternion(*tf.transformations.quaternion_from_euler(0, 0, 0))
-    starting_pose = Pose(Point(0.3,0.55,0.85), orient)
+    starting_pose = Pose(Point(0.3,0.55,0.8), orient)
     
     chess_game.move_to_start(starting_pose)
 
