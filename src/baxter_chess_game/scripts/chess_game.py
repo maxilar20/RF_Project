@@ -197,16 +197,11 @@ def delete_gazebo_models():
     
     for piece in piece_names:
         print ("Deleting " + piece)
-        try:
-            delete_model(piece)
-        except:
-            print("Not found")
+        delete_model(piece)
 
-    try:
-        delete_model("cafe_table")
-        delete_model("chessboard")
-    except:
-        pass
+    delete_model("cafe_table")
+    delete_model("chessboard")
+
 
 def main():
     rospy.init_node("chess_game")
@@ -233,11 +228,12 @@ def main():
     chess_game.move_to_start(starting_pose)
 
     while not rospy.is_shutdown():
+        chess_game.gripper_open()
+
         try:
             (trans,rot) = listener.lookupTransform('/world', '/p1', rospy.Time(0))
         except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
             continue
-        print(trans)
 
         print("\nPicking...")
         block_pose = Pose(position = Point(x=trans[0],y=trans[1],z=trans[2]), orientation = overhead_orientation)
