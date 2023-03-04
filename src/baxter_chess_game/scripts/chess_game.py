@@ -108,13 +108,14 @@ class ChessGame(object):
         self.gripper_open()
         self._retract()
 
-    def pose_callback(self, pose_msg):
-        block_pose_pick = Pose(
-            position=Point(x=pose_msg.pose.position.x, y=pose_msg.pose.position.y, z=pose_msg.pose.position.z - 0.02),
-            orientation=overhead_orientation)
+    def tf_callback(self, pose_msg):
+        print
+        # block_pose_pick = Pose(
+        #     position=Point(x=pose_msg.pose.position.x, y=pose_msg.pose.position.y, z=pose_msg.pose.position.z - 0.02),
+        #     orientation=self.overhead_orientation)
 
-        picking_pose = Pose(position=Point(x=0.0, y=0.7, z=0.15),
-            orientation=overhead_orientation)
+        # picking_pose = Pose(position=Point(x=0.0, y=0.7, z=0.15),
+        #     orientation=self.overhead_orientation)
 
 
 def load_gazebo_models():
@@ -196,10 +197,16 @@ def delete_gazebo_models():
     
     for piece in piece_names:
         print ("Deleting " + piece)
-        delete_model(piece)
+        try:
+            delete_model(piece)
+        except:
+            print("Not found")
 
-    delete_model("cafe_table")
-    delete_model("chessboard")
+    try:
+        delete_model("cafe_table")
+        delete_model("chessboard")
+    except:
+        pass
 
 def main():
     rospy.init_node("chess_game")
@@ -218,8 +225,7 @@ def main():
     chess_game = ChessGame(limb, hover_distance)
 
     # Subscriber
-    rospy.Subscriber('/lab5_pkg/pose', PoseStamped, chess_game.pose_callback, queue_size=1)
-
+    listener = tf.TransformListener()
 
     orient = Quaternion(*tf.transformations.quaternion_from_euler(0, 0, 0))
     starting_pose = Pose(Point(0.3,0.55,0.85), orient)
@@ -227,9 +233,14 @@ def main():
     chess_game.move_to_start(starting_pose)
 
     while not rospy.is_shutdown():
+        try:
+            (trans,rot) = listener.lookupTransform('/world', '/p1', rospy.Time(0))
+        except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
+            continue
+        print(trans)
+
         print("\nPicking...")
-        piece_pos = rospy.get_param('piece_target_position_map')["01"]
-        block_pose = Pose(position = Point(x=piece_pos[0],y=piece_pos[1],z=piece_pos[2]), orientation = overhead_orientation)
+        block_pose = Pose(position = Point(x=trans[0],y=trans[1],z=trans[2]), orientation = overhead_orientation)
         chess_game.pick(block_pose)
 
     

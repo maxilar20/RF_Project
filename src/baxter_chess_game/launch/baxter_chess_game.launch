@@ -5,6 +5,8 @@
   <node pkg="baxter_interface" type="joint_trajectory_action_server.py" name="rsdk_%s_joint_trajectory_action_server%s"/>
 
   <include file="$(find baxter_moveit_config)/launch/baxter_grippers.launch"/>
+
+  <node pkg="baxter_chess_game" type="gazebo_to_tf.py" name="gazebo_to_tf"/>
   
   <!-- <node pkg="baxter_chess_game" type="spawn_chessboard.py" name="spawn_chessboard"/> -->
 
