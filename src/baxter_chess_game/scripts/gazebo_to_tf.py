@@ -33,10 +33,9 @@ def main():
     rate = rospy.Rate(20)
     while not rospy.is_shutdown():
         for name,pose in poses.items():
-            print(pose)
             pos = pose.position
             ori = pose.orientation
-            # rospy.loginfo(pos)
+            rospy.loginfo(pos)
             tfBroadcaster.sendTransform((pos.x, pos.y, pos.z - 0.93), (ori.x, ori.y, ori.z, ori.w), rospy.Time.now(), name, 'world')
         rate.sleep()
 

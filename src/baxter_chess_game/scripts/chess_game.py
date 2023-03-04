@@ -159,7 +159,7 @@ def load_gazebo_models():
             pieces_xml[each] = f.read().replace('\n', '')
             
 
-    board_setup = ['rnbqkbnr', 'pppppppp', '', '', '', '', 'PPPPPPPP', 'RNBQKBNR']
+    board_setup = ['rnbqkbnr', 'pppppppp', '********', '********', '********', '********', 'PPPPPPPP', 'RNBQKBNR']
     #board_setup = ['r******r', '', '**k*****', '', '', '******K*', '', 'R******R']
 
     piece_positionmap = dict()
@@ -202,7 +202,6 @@ def delete_gazebo_models():
     delete_model("cafe_table")
     delete_model("chessboard")
 
-
 def main():
     rospy.init_node("chess_game")
     delete_gazebo_models()
@@ -227,17 +226,23 @@ def main():
     
     chess_game.move_to_start(starting_pose)
 
+    movs = [("p3","33"),("P3","43"),("n1","22"),("P4","44"),("n6","25")]
     while not rospy.is_shutdown():
-        chess_game.gripper_open()
+        for mov in movs:
+            try:
+                (trans,rot) = listener.lookupTransform('/world', '/'+mov[0], rospy.Time(0))
+                print("pos: ",trans)
+            except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
+                continue
 
-        try:
-            (trans,rot) = listener.lookupTransform('/world', '/p1', rospy.Time(0))
-        except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
-            continue
+            block_pose = Pose(position = Point(x=trans[0],y=trans[1],z=trans[2]), orientation = overhead_orientation)
+            print("\n Picking...",block_pose)
+            chess_game.pick(block_pose)
 
-        print("\nPicking...")
-        block_pose = Pose(position = Point(x=trans[0],y=trans[1],z=trans[2]), orientation = overhead_orientation)
-        chess_game.pick(block_pose)
+            piece_pos = rospy.get_param('piece_target_position_map')[mov[1]]
+            block_pose = Pose(position = Point(x=piece_pos[0],y=piece_pos[1],z=piece_pos[2]), orientation = overhead_orientation)
+            print("\n Placing...",block_pose)
+            chess_game.place(block_pose)
 
     
     return 0
