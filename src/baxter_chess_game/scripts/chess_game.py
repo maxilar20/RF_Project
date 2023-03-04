@@ -175,12 +175,15 @@ def load_gazebo_models():
 
 
 def delete_gazebo_models():
+    try:
+        piece_names = rospy.get_param('piece_names')
+    except:
+        return
+    
     rospy.wait_for_service("gazebo/delete_model")
 
     delete_model = rospy.ServiceProxy("gazebo/delete_model", DeleteModel)
-
-    piece_names = rospy.get_param('piece_names')
-
+    
     for piece in piece_names:
         print ("Deleting " + piece)
         delete_model(piece)
@@ -190,6 +193,7 @@ def delete_gazebo_models():
 
 def main():
     rospy.init_node("chess_game")
+    delete_gazebo_models()
     load_gazebo_models()
     rospy.on_shutdown(delete_gazebo_models)
 
@@ -204,9 +208,8 @@ def main():
     chess_game = ChessGame(limb, hover_distance)
 
 
-    starting_pose = Pose(
-        position=Point(x=0.7, y=0.135, z=0.35),
-        orientation=overhead_orientation)
+    orient = Quaternion(*tf.transformations.quaternion_from_euler(0, 0, 0))
+    starting_pose = Pose(Point(0.3,0.55,0.85), orient)
     
     chess_game.move_to_start(starting_pose)
 
@@ -215,6 +218,8 @@ def main():
         piece_pos = rospy.get_param('piece_target_position_map')["01"]
         block_pose = Pose(position = Point(x=piece_pos[0],y=piece_pos[1],z=piece_pos[2]), orientation = overhead_orientation)
         chess_game.pick(block_pose)
+
+    
     return 0
 
 if __name__ == '__main__':
