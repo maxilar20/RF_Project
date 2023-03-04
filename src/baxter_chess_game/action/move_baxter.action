@@ -1,5 +1,5 @@
-Point order
+int32 goal_pos
 ---
-int32 sequence
+bool completed
 ---
-int32 partial_sequence
+int32 distance

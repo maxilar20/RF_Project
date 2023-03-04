@@ -14,6 +14,9 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   tf
+  genmsg 
+  actionlib_msgs 
+  actionlib
 )
 
 ## System dependencies are found with CMake's conventions
@@ -65,6 +68,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 # Generate actions in the 'action' folder
 add_action_files(
+  DIRECTORY action
   FILES
   move_baxter.action
 )
@@ -74,6 +78,10 @@ add_action_files(
 #   DEPENDENCIES
 #   geometry_msgs#   moveit_msgs#   std_msgs
 # )
+
+generate_messages(
+  DEPENDENCIES actionlib_msgs std_msgs  # Or other packages containing msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##

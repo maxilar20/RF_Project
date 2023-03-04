@@ -22,7 +22,7 @@ if __name__ == '__main__':
     try:
         spawn_sdf = rospy.ServiceProxy('/gazebo/spawn_sdf_model', SpawnModel)
         spawn_sdf("cafe_table", table_xml, "/", table_pose, "world")
-    except rospy.ServiceException, e:
+    except rospy.ServiceException as e:
         rospy.logerr("Spawn SDF service call failed: {0}".format(e))
     
     
