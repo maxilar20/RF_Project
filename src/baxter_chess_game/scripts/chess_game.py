@@ -204,11 +204,12 @@ def delete_gazebo_models():
 
 def main():
     rospy.init_node("chess_game")
+    rospy.on_shutdown(delete_gazebo_models)
+    rospy.wait_for_message("/robot/sim/started", Empty)
+
     delete_gazebo_models()
     load_gazebo_models()
-    rospy.on_shutdown(delete_gazebo_models)
 
-    rospy.wait_for_message("/robot/sim/started", Empty)
 
     limb = 'left'
     hover_distance = 0.15  # meters
@@ -221,27 +222,28 @@ def main():
     # Subscriber
     listener = tf.TransformListener()
 
-    orient = Quaternion(*tf.transformations.quaternion_from_euler(0, 0, 0))
-    starting_pose = Pose(Point(0.3,0.55,0.8), orient)
-    
-    chess_game.move_to_start(starting_pose)
-
-    movs = [("p3","33"),("P3","43"),("n1","22"),("P4","44"),("n6","25")]
+    movs = [("p4","34"),("P4","44"),("n6","25"),("P3","43")]
     while not rospy.is_shutdown():
+
+        starting_pose = Pose(
+        position=Point(x=0.7, y=0.135, z=0.35),
+        orientation=overhead_orientation)
+        chess_game.move_to_start(starting_pose)
+
         for mov in movs:
             try:
                 (trans,rot) = listener.lookupTransform('/world', '/'+mov[0], rospy.Time(0))
-                print("pos: ",trans)
+                
             except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
                 continue
 
             block_pose = Pose(position = Point(x=trans[0],y=trans[1],z=trans[2]), orientation = overhead_orientation)
-            print("\n Picking...",block_pose)
+            print("Picking...",trans)
             chess_game.pick(block_pose)
 
             piece_pos = rospy.get_param('piece_target_position_map')[mov[1]]
             block_pose = Pose(position = Point(x=piece_pos[0],y=piece_pos[1],z=piece_pos[2]), orientation = overhead_orientation)
-            print("\n Placing...",block_pose)
+            print("Placing...")
             chess_game.place(block_pose)
 
     
