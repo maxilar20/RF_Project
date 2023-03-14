@@ -157,63 +157,59 @@ def load_gazebo_models():
     for each in list_pieces:
         with open(model_path + each+".sdf", "r") as f:
             pieces_xml[each] = f.read().replace('\n', '')
-            
 
-    board_setup = ['rnbqkbnr', 'pppppppp', '********', '********', '********', '********', 'PPPPPPPP', 'RNBQKBNR']
-    #board_setup = ['r******r', '', '**k*****', '', '', '******K*', '', 'R******R']
-
-    #ADDED#
-    pose_spawn = deepcopy(board_pose)
-    pose_spawn.position.x = 0.7
-    pose_spawn.position.y = 0.7
-    pose_spawn.position.z = 0.8
-
-    overhead_orientation = Quaternion(x=-0.0249590815779, y=0.999649402929, z=0.00737916180073, w=0.00486450832011)
     limb = 'left'
     hover_distance = 0.15  # meters
+    overhead_orientation = Quaternion(x=-0.0249590815779, y=0.999649402929, z=0.00737916180073, w=0.00486450832011)
     chess_game = ChessGame(limb, hover_distance)
+    # Subscriber
     listener = tf.TransformListener()
     orient = Quaternion(*tf.transformations.quaternion_from_euler(0, 0, 0))
-    starting_pose = Pose(Point(0.3,0.55,0.8), orient)
+    starting_pose = Pose(Point(0.55,0.6,0.1), overhead_orientation)
     chess_game.move_to_start(starting_pose)
 
+    piece_spawn = deepcopy(board_pose)
+    piece_spawn.position.x = 0.55
+    piece_spawn.position.y = 0.6
+    piece_spawn.position.z = 0.79
+
+
+    board_setup_complete = ['rnbqkbnr', 'pppppppp', '********', '********', '********', '********', 'PPPPPPPP', 'RNBQKBNR']
     piece_positionmap = dict()
-    piece_names = []
-    for row, each in enumerate(board_setup):
-        # print row
+    for row, each in enumerate(board_setup_complete):
         for col, piece in enumerate(each):
             pose = deepcopy(board_pose)
             pose.position.x = board_pose.position.x + frame_dist + origin_piece + row * (2 * origin_piece)
             pose.position.y = board_pose.position.y - 0.55 + frame_dist + origin_piece + col * (2 * origin_piece)
             pose.position.z += 0.018
             piece_positionmap[str(row)+str(col)] = [pose.position.x, pose.position.y, pose.position.z-0.93] #0.93 to compensate Gazebo RViz origin difference
-            if piece in pieces_xml: #ORIGINAL in list_pieces#
+
+    board_setup = ['*******r','**p*p***','','','','','***P*P**','R*******']
+    # board_setup = ['rnbqkbnr', 'pppppppp', '********', '********', '********', '********', 'PPPPPPPP', 'RNBQKBNR']
+
+    #piece_positionmap = dict()
+    piece_names = []
+    for row, each in enumerate(board_setup):
+        for col, piece in enumerate(each):
+            pose = deepcopy(board_pose)
+            pose.position.x = board_pose.position.x + frame_dist + origin_piece + row * (2 * origin_piece)
+            pose.position.y = board_pose.position.y - 0.55 + frame_dist + origin_piece + col * (2 * origin_piece)
+            pose.position.z += 0.018
+            # piece_positionmap[str(row)+str(col)] = [pose.position.x, pose.position.y, pose.position.z-0.93] #0.93 to compensate Gazebo RViz origin difference
+
+            if piece in list_pieces:
                 name = "%s%d" % (piece,col)
                 piece_names.append(name)
                 # Add chessboard into the simulation
-                print(srv_call(name, pieces_xml[piece], "", pose_spawn, "world"))
-                #print(srv_call(name, pieces_xml[piece], "", pose, "world")) #ORIGINAL#
+                print(srv_call(name, pieces_xml[piece], "", piece_spawn, "world"))
 
-            #ADDED#
-            if piece in list_pieces:
-                piece_names.append("%s%d" % (piece,col))
-
-                try:
-                    (trans,rot) = listener.lookupTransform('/world', '/'+piece, rospy.Time(0))
-                    print("pos: ",trans)
-                except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
-                    continue
-
-                # block_pose = Pose(position = Point(x=trans[0],y=trans[1],z=trans[2]), orientation = overhead_orientation)
-                block_pose = Pose(position = Point(x=trans[0],y=trans[1],z=trans[2]), orientation = overhead_orientation)
+                block_pose = Pose(position = Point(x=piece_spawn.position.x, y=piece_spawn.position.y, z=piece_spawn.position.z-0.93), orientation = overhead_orientation)
                 print("\n Picking...",block_pose)
-                chess_game.pick(pose_spawn)
+                chess_game.pick(block_pose)
 
-                piece_pos = rospy.get_param('piece_target_position_map')[piece]
-                block_pose = Pose(position = Point(x=piece_pos[0],y=piece_pos[1],z=piece_pos[2]), orientation = overhead_orientation)
+                block_pose = Pose(position = Point(x=pose.position.x, y=pose.position.y,z=piece_spawn.position.z-0.93), orientation = overhead_orientation)
                 print("\n Placing...",block_pose)
                 chess_game.place(block_pose)
-
     
     rospy.set_param('board_setup', board_setup) # Board setup
     rospy.set_param('list_pieces', list_pieces) # List of unique pieces
@@ -251,7 +247,6 @@ def main():
     hover_distance = 0.15  # meters
 
     overhead_orientation = Quaternion(x=-0.0249590815779, y=0.999649402929, z=0.00737916180073, w=0.00486450832011)
-
     
     chess_game = ChessGame(limb, hover_distance)
 
@@ -259,30 +254,29 @@ def main():
     listener = tf.TransformListener()
 
     orient = Quaternion(*tf.transformations.quaternion_from_euler(0, 0, 0))
-    starting_pose = Pose(Point(0.3,0.55,0.8), orient)
+    starting_pose = Pose(Point(0.55,0.3,0.1), overhead_orientation)
     
     chess_game.move_to_start(starting_pose)
 
-    movs = [("p3","33"),("P3","43"),("n1","22"),("P4","44"),("n6","25")]
-    while not rospy.is_shutdown():
-        for mov in movs:
-            try:
-                (trans,rot) = listener.lookupTransform('/world', '/'+mov[0], rospy.Time(0))
-                print("pos: ",trans)
-            except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
-                continue
+    movs = [("p4","34"),("P5","45"),("r7","37"),("R0","40")]
+    # while not rospy.is_shutdown():
+    for mov in movs:
+        try:
+            (trans,rot) = listener.lookupTransform('/world', '/'+mov[0], rospy.Time(0))
+            print("pos: ",trans)
+        except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
+            continue
 
-            block_pose = Pose(position = Point(x=trans[0],y=trans[1],z=trans[2]), orientation = overhead_orientation)
-            print("\n Picking...",block_pose)
-            chess_game.pick(block_pose)
+        block_pose = Pose(position = Point(x=trans[0],y=trans[1],z=trans[2]), orientation = overhead_orientation)
+        print("\n Picking...",block_pose)
+        chess_game.pick(block_pose)
 
-            piece_pos = rospy.get_param('piece_target_position_map')[mov[1]]
-            block_pose = Pose(position = Point(x=piece_pos[0],y=piece_pos[1],z=piece_pos[2]), orientation = overhead_orientation)
-            print("\n Placing...",block_pose)
-            chess_game.place(block_pose)
-
+        piece_pos = rospy.get_param('piece_target_position_map')[mov[1]]
+        block_pose = Pose(position = Point(x=piece_pos[0],y=piece_pos[1],z=piece_pos[2]), orientation = overhead_orientation)
+        print("\n Placing...",block_pose)
+        chess_game.place(block_pose)
     
-    return 0
+    # return 0
 
 if __name__ == '__main__':
     sys.exit(main())
