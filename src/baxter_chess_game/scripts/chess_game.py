@@ -90,7 +90,6 @@ class ChessGame(object):
         self._group.execute(plan)
 
     def _servo_to_pose(self, pose):
-        # servo down to release
         self._group.set_pose_target(pose)
         plan = self._group.plan()
         self._group.execute(plan)
@@ -108,17 +107,8 @@ class ChessGame(object):
         self.gripper_open()
         self._retract()
 
-    def tf_callback(self, pose_msg):
-        print
-        # block_pose_pick = Pose(
-        #     position=Point(x=pose_msg.pose.position.x, y=pose_msg.pose.position.y, z=pose_msg.pose.position.z - 0.02),
-        #     orientation=self.overhead_orientation)
 
-        # picking_pose = Pose(position=Point(x=0.0, y=0.7, z=0.15),
-        #     orientation=self.overhead_orientation)
-
-
-def load_gazebo_models():
+def load_and_place(board_setup):
     rospy.wait_for_service("gazebo/spawn_sdf_model")
 
     srv_call = rospy.ServiceProxy("gazebo/spawn_sdf_model", SpawnModel)
@@ -184,10 +174,7 @@ def load_gazebo_models():
             pose.position.z += 0.018
             piece_positionmap[str(row)+str(col)] = [pose.position.x, pose.position.y, pose.position.z-0.93] #0.93 to compensate Gazebo RViz origin difference
 
-    board_setup = ['*******r','**p*p***','','','','','***P*P**','R*******']
-    # board_setup = ['rnbqkbnr', 'pppppppp', '********', '********', '********', '********', 'PPPPPPPP', 'RNBQKBNR']
 
-    #piece_positionmap = dict()
     piece_names = []
     for row, each in enumerate(board_setup):
         for col, piece in enumerate(each):
@@ -195,12 +182,10 @@ def load_gazebo_models():
             pose.position.x = board_pose.position.x + frame_dist + origin_piece + row * (2 * origin_piece)
             pose.position.y = board_pose.position.y - 0.55 + frame_dist + origin_piece + col * (2 * origin_piece)
             pose.position.z += 0.018
-            # piece_positionmap[str(row)+str(col)] = [pose.position.x, pose.position.y, pose.position.z-0.93] #0.93 to compensate Gazebo RViz origin difference
 
             if piece in list_pieces:
                 name = "%s%d" % (piece,col)
                 piece_names.append(name)
-                # Add chessboard into the simulation
                 print(srv_call(name, pieces_xml[piece], "", piece_spawn, "world"))
 
                 block_pose = Pose(position = Point(x=piece_spawn.position.x, y=piece_spawn.position.y, z=piece_spawn.position.z-0.93), orientation = overhead_orientation)
@@ -236,30 +221,39 @@ def delete_gazebo_models():
     delete_model("chessboard")
 
 def main():
-    rospy.init_node("chess_game")
-    delete_gazebo_models()
-    load_gazebo_models()
-    rospy.on_shutdown(delete_gazebo_models)
 
+    #  Initializing the node
+    rospy.init_node("chess_game")
+
+    # Waiting for start of sim
     rospy.wait_for_message("/robot/sim/started", Empty)
 
+    # Deleting in case there was a previous run
+    delete_gazebo_models()
+
+    # Loading and placing pieces
+    board_setup = ['*******r','**p*p***','','','','','***P*P**','R*******']
+    load_and_place(board_setup)
+
+    # Add callback when shutting down to delete models
+    rospy.on_shutdown(delete_gazebo_models)
+
+    # Robot planning parameters
     limb = 'left'
     hover_distance = 0.15  # meters
-
     overhead_orientation = Quaternion(x=-0.0249590815779, y=0.999649402929, z=0.00737916180073, w=0.00486450832011)
-    
-    chess_game = ChessGame(limb, hover_distance)
-
-    # Subscriber
-    listener = tf.TransformListener()
-
     orient = Quaternion(*tf.transformations.quaternion_from_euler(0, 0, 0))
     starting_pose = Pose(Point(0.55,0.3,0.1), overhead_orientation)
     
-    chess_game.move_to_start(starting_pose)
+    # Subscriber
+    listener = tf.TransformListener()
 
+    # Initializing game object
+    chess_game = ChessGame(limb, hover_distance)
+    
+    chess_game.move_to_start(starting_pose)
+    
     movs = [("p4","34"),("P5","45"),("r7","37"),("R0","40")]
-    # while not rospy.is_shutdown():
     for mov in movs:
         try:
             (trans,rot) = listener.lookupTransform('/world', '/'+mov[0], rospy.Time(0))
@@ -276,7 +270,6 @@ def main():
         print("\n Placing...",block_pose)
         chess_game.place(block_pose)
     
-    # return 0
 
 if __name__ == '__main__':
     sys.exit(main())
