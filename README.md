@@ -22,6 +22,9 @@ roslaunch baxter_chess_game baxter_chess_game.launch
 **Terminal 3:**
 rosrun baxter_chess_game chess_game.py
 
+Video:
+https://youtu.be/iisnoATp8-A
+
 
 Any questions you can contact us:
 Mael Dorne: 2806329d@student.gla.ac.uk
