@@ -142,12 +142,14 @@ def load_and_place(board_setup):
     # Add chesspieces into the simulation
     origin_piece = 0.03125
 
+    #Pieces list
     pieces_xml = dict()
     list_pieces = 'rnbqkpRNBQKP'
     for each in list_pieces:
         with open(model_path + each+".sdf", "r") as f:
             pieces_xml[each] = f.read().replace('\n', '')
 
+    #Setup
     limb = 'left'
     hover_distance = 0.15  # meters
     overhead_orientation = Quaternion(x=-0.0249590815779, y=0.999649402929, z=0.00737916180073, w=0.00486450832011)
@@ -158,12 +160,13 @@ def load_and_place(board_setup):
     starting_pose = Pose(Point(0.55,0.6,0.1), overhead_orientation)
     chess_game.move_to_start(starting_pose)
 
+    #Location to spawn pieces
     piece_spawn = deepcopy(board_pose)
     piece_spawn.position.x = 0.55
     piece_spawn.position.y = 0.6
     piece_spawn.position.z = 0.79
 
-
+    #Get positions for Chess board
     board_setup_complete = ['rnbqkbnr', 'pppppppp', '********', '********', '********', '********', 'PPPPPPPP', 'RNBQKBNR']
     piece_positionmap = dict()
     for row, each in enumerate(board_setup_complete):
@@ -174,7 +177,7 @@ def load_and_place(board_setup):
             pose.position.z += 0.018
             piece_positionmap[str(row)+str(col)] = [pose.position.x, pose.position.y, pose.position.z-0.93] #0.93 to compensate Gazebo RViz origin difference
 
-
+    #Spawn pieces one by one, pick and place
     piece_names = []
     for row, each in enumerate(board_setup):
         for col, piece in enumerate(each):
@@ -183,15 +186,18 @@ def load_and_place(board_setup):
             pose.position.y = board_pose.position.y - 0.55 + frame_dist + origin_piece + col * (2 * origin_piece)
             pose.position.z += 0.018
 
+            #Spawn piece
             if piece in list_pieces:
                 name = "%s%d" % (piece,col)
                 piece_names.append(name)
                 print(srv_call(name, pieces_xml[piece], "", piece_spawn, "world"))
 
+                #Pick
                 block_pose = Pose(position = Point(x=piece_spawn.position.x, y=piece_spawn.position.y, z=piece_spawn.position.z-0.93), orientation = overhead_orientation)
                 print("\n Picking...",block_pose)
                 chess_game.pick(block_pose)
 
+                #Place
                 block_pose = Pose(position = Point(x=pose.position.x, y=pose.position.y,z=piece_spawn.position.z-0.93), orientation = overhead_orientation)
                 print("\n Placing...",block_pose)
                 chess_game.place(block_pose)
@@ -253,6 +259,7 @@ def main():
     
     chess_game.move_to_start(starting_pose)
     
+    #Move pieces to boad position
     movs = [("p4","34"),("P5","45"),("r7","37"),("R0","40")]
     for mov in movs:
         try:
@@ -261,10 +268,12 @@ def main():
         except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
             continue
 
+        #Peak
         block_pose = Pose(position = Point(x=trans[0],y=trans[1],z=trans[2]), orientation = overhead_orientation)
         print("\n Picking...",block_pose)
         chess_game.pick(block_pose)
 
+        #Place
         piece_pos = rospy.get_param('piece_target_position_map')[mov[1]]
         block_pose = Pose(position = Point(x=piece_pos[0],y=piece_pos[1],z=piece_pos[2]), orientation = overhead_orientation)
         print("\n Placing...",block_pose)
